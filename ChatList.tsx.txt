@@ -1,0 +1,76 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Camera, MoreVertical, Edit } from 'lucide-react';
+import { MOCK_CHATS } from '../data/mockData';
+
+export const ChatList: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="px-4 py-3 bg-white border-b border-gray-100 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-blue-600 tracking-tight">AeroChat</h1>
+        <div className="flex gap-4 text-gray-600">
+          <Camera className="w-6 h-6" />
+          <Search className="w-6 h-6" />
+          <MoreVertical className="w-6 h-6" />
+        </div>
+      </div>
+
+      {/* Stories / Status (Horizontal Scroll) */}
+      <div className="py-4 bg-white border-b border-gray-100">
+        <div className="flex gap-4 overflow-x-auto px-4 no-scrollbar">
+          <div className="flex flex-col items-center gap-1 shrink-0">
+            <div className="w-16 h-16 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center relative">
+              <span className="text-2xl">+</span>
+            </div>
+            <span className="text-xs font-medium">My Status</span>
+          </div>
+          {MOCK_CHATS.map((chat) => (
+            <div key={chat.id} className="flex flex-col items-center gap-1 shrink-0">
+              <div className="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-blue-500 to-purple-500">
+                <img src={chat.avatar} alt={chat.name} className="w-full h-full rounded-full object-cover border-2 border-white" />
+              </div>
+              <span className="text-xs font-medium">{chat.name.split(' ')[0]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Chat List */}
+      <div className="flex-1 overflow-y-auto bg-white">
+        {MOCK_CHATS.map((chat) => (
+          <div 
+            key={chat.id} 
+            onClick={() => navigate(`/chat/${chat.id}`)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 active:bg-gray-100 cursor-pointer transition-colors"
+          >
+            <img src={chat.avatar} alt={chat.name} className="w-12 h-12 rounded-full object-cover" />
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between items-baseline mb-1">
+                <h3 className="font-semibold text-gray-900 truncate">{chat.name}</h3>
+                <span className={`text-xs ${chat.unreadCount > 0 ? 'text-blue-500 font-bold' : 'text-gray-400'}`}>
+                  {chat.lastMessageTime}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-sm text-gray-500 truncate">{chat.lastMessage}</p>
+                {chat.unreadCount > 0 && (
+                  <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-white font-bold">{chat.unreadCount}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* FAB (Floating Action Button) */}
+      <button className="absolute bottom-6 right-6 w-14 h-14 bg-blue-600 rounded-2xl shadow-lg flex items-center justify-center text-white hover:bg-blue-700 active:scale-95 transition-all">
+        <Edit className="w-6 h-6" />
+      </button>
+    </div>
+  );
+};

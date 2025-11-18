@@ -1,0 +1,26 @@
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+
+export const Layout: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-0 sm:p-4">
+      <div className="w-full max-w-md h-[100dvh] sm:h-[850px] bg-white sm:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative border-8 border-gray-900 sm:border-gray-800">
+        {/* Notch (Visual only for desktop) */}
+        <div className="hidden sm:block absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50"></div>
+        
+        {/* Status Bar Area */}
+        <div className="h-8 bg-white w-full shrink-0"></div>
+
+        {/* Main Content */}
+        <div className="flex-1 overflow-hidden flex flex-col bg-slate-50">
+          <Outlet />
+        </div>
+
+        {/* Home Indicator */}
+        <div className="h-6 bg-white w-full shrink-0 flex items-center justify-center">
+          <div className="w-32 h-1 bg-gray-300 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  );
+};

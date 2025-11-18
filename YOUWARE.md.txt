@@ -1,0 +1,51 @@
+# YOUWARE.md
+
+# AeroChat Project Guide
+
+This repository contains the AeroChat application, a high-performance mobile messaging platform.
+
+## Project Architecture
+
+### Frontend (Web Client / PWA)
+- **Location**: `src/`
+- **Framework**: React + Vite + TypeScript
+- **Styling**: Tailwind CSS
+- **State**: Local React State + Mock Data (for demo)
+- **Routing**: React Router DOM
+- **Design**: Mobile-First (simulated mobile view on desktop)
+
+### Backend (API)
+- **Location**: `backend/`
+- **Framework**: Node.js + Express
+- **Language**: TypeScript
+- **Database**: PostgreSQL (Schema provided in `backend/src/database/schema.sql`)
+- **Real-time**: Native WebSockets (`ws` library)
+- **Storage**: AWS S3 (Routes provided in `backend/src/routes/upload.routes.ts`)
+
+## Development Commands
+
+### Frontend
+- `npm run dev`: Start the frontend development server
+- `npm run build`: Build the frontend for production
+- `npm run preview`: Preview the production build
+
+### Backend
+- `cd backend && npm install`: Install backend dependencies
+- `cd backend && npm run dev`: Start the backend server (requires DB setup)
+
+## Database Schema
+The database schema is located at `backend/src/database/schema.sql`. It includes tables for:
+- `users`: User profiles and authentication
+- `chats`: Conversation metadata
+- `messages`: Message content and types
+- `message_reactions`: Emoji reactions
+- `media_files`: File attachments
+
+## Key Features Implementation
+- **Chat Interface**: `src/pages/ChatScreen.tsx` implements the core messaging UI.
+- **Chat List**: `src/pages/ChatList.tsx` displays active conversations.
+- **Mobile Layout**: `src/layouts/MobileLayout.tsx` provides the phone frame wrapper.
+
+## Future Roadmap
+1. **Connect Backend**: Replace `src/data/mockData.ts` with real API calls to the `backend/` endpoints.
+2. **React Native Port**: Copy component logic from `src/components` to a new Expo project, replacing HTML tags with React Native primitives (`View`, `Text`).
